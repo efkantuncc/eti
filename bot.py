@@ -217,6 +217,7 @@ async def tokat(event):
     action = random.choice(actions)
     photo = random.choice(photos)
     tokat_message = f"👉🏻 @{event.sender.username}, @{replied_user.sender.username} kişisine **{action}**"
+    await client.send_file(event.chat_id, photo, caption=tokat_message)
 
 print(">> BOT AKTİF <<")
 client.run_until_disconnected()
