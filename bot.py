@@ -1,7 +1,6 @@
 import logging
 import asyncio
 import random
-from flask import Flask
 from telethon import Button, TelegramClient, events
 from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator
 from telethon.tl.functions.channels import GetParticipantRequest
@@ -22,25 +21,6 @@ allowed_users = [7252117654, 6563936773]
 client = TelegramClient('client', api_id, api_hash).start(bot_token=bot_token)
 spam_chats = set()
 
-# Flask Uygulaması
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return "Telegram Bot ve Flask Sunucusu Çalışıyor!"
-
-@app.route('/status')
-def status():
-    return "Bot Çalışıyor"
-
-if __name__ == '__main__':
-    from threading import Thread
-    def run_flask():
-        app.run(port=5000)
-    thread = Thread(target=run_flask)
-    thread.start()
-
-# Bot komutları
 @client.on(events.NewMessage(pattern="^/start$"))
 async def start(event):
     photo_url = 'https://i.hizliresim.com/4fw6vm3.jpg'
@@ -240,8 +220,8 @@ async def tokat(event):
     tokat_message = f"👉🏻 @{event.sender.username}, @{replied_user.sender.username} kişisine **{action}**"
     await client.send_file(event.chat_id, photo, caption=tokat_message)
 
-@client.on(events.NewMessage(pattern="^/reklam ?(.*)"))
-async def reklam(event):
+    @client.on(events.NewMessage(pattern="^/reklam ?(.*)"))
+    async def reklam(event):
     chat_id = event.chat_id
     if event.is_private:
         return await event.respond("Bu komut yalnızca gruplarda kullanılabilir!")
@@ -264,8 +244,8 @@ async def reklam(event):
 
     await event.respond("Reklam mesajı tüm gruplara gönderildi.")
 
-@client.on(events.NewMessage(pattern="^/stats$"))
-async def stats(event):
+    @client.on(events.NewMessage(pattern="^/stats$"))
+    async def stats(event):
     chat_id = event.chat_id
     if event.is_private:
         return await event.respond("Bu komut yalnızca gruplarda kullanılabilir!")
@@ -286,6 +266,7 @@ async def stats(event):
                     f"👤 Toplam Kullanıcı Sayısı: {user_count}")
 
     await event.respond(stats_message)
+
 
 print(">> BOT AKTİF <<")
 client.run_until_disconnected()
