@@ -16,6 +16,7 @@ LOGGER = logging.getLogger(__name__)
 api_id = 23144161
 api_hash = '0e156557bde6def9a8541cc8c65d57df'
 bot_token = '5374464909:AAHhMTA-B_v1pwGvpkbB90f515TRHetPolA'
+allowed_users = [7252117654, 6563936773]
 
 client = TelegramClient('client', api_id, api_hash).start(bot_token=bot_token)
 spam_chats = set()
@@ -218,6 +219,54 @@ async def tokat(event):
     photo = random.choice(photos)
     tokat_message = f"👉🏻 @{event.sender.username}, @{replied_user.sender.username} kişisine **{action}**"
     await client.send_file(event.chat_id, photo, caption=tokat_message)
+
+    @client.on(events.NewMessage(pattern="^/reklam ?(.*)"))
+async def reklam(event):
+    chat_id = event.chat_id
+    if event.is_private:
+        return await event.respond("Bu komut yalnızca gruplarda kullanılabilir!")
+
+    if event.sender_id not in allowed_users:
+        return await event.respond("Bu komutu kullanma izniniz yok!")
+
+    msg = event.pattern_match.group(1)
+    if not msg:
+        return await event.respond("Bir mesaj belirtmelisiniz!")
+
+    # Botun bulunduğu tüm gruplara mesaj gönder
+    async for dialog in client.iter_dialogs():
+        if dialog.is_group:
+            try:
+                await client.send_message(dialog.id, msg)
+                await asyncio.sleep(1)  # Her grup arasında kısa bir bekleme süresi
+            except Exception as e:
+                LOGGER.error(f"Mesaj gönderilirken hata oluştu: {str(e)}")
+
+    await event.respond("Reklam mesajı tüm gruplara gönderildi.")
+
+    @client.on(events.NewMessage(pattern="^/stats$"))
+async def stats(event):
+    chat_id = event.chat_id
+    if event.is_private:
+        return await event.respond("Bu komut yalnızca gruplarda kullanılabilir!")
+
+    if event.sender_id not in allowed_users:
+        return await event.respond("Bu komutu kullanma izniniz yok!")
+
+    group_count = 0
+    user_count = 0
+    async for dialog in client.iter_dialogs():
+        if dialog.is_group:
+            group_count += 1
+            async for participant in client.iter_participants(dialog.id):
+                user_count += 1
+
+    stats_message = (f"📊 **Botun İstatistikleri**\n\n"
+                    f"👥 Toplam Grup Sayısı: {group_count}\n"
+                    f"👤 Toplam Kullanıcı Sayısı: {user_count}")
+
+    await event.respond(stats_message)
+
 
 print(">> BOT AKTİF <<")
 client.run_until_disconnected()
