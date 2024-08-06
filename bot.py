@@ -15,20 +15,20 @@ LOGGER = logging.getLogger(__name__)
 # API bilgilerinizi buraya ekleyin
 api_id = 23144161
 api_hash = '0e156557bde6def9a8541cc8c65d57df'
-bot_token = '7035876195:AAHaLC35OUDrMGFdCfZnv2536FG-nJK1hlc'
+bot_token = '5374464909:AAHhMTA-B_v1pwGvpkbB90f515TRHetPolA'
 
 client = TelegramClient('client', api_id, api_hash).start(bot_token=bot_token)
 spam_chats = set()
 
 @client.on(events.NewMessage(pattern="^/start$"))
 async def start(event):
-    photo_url = 'https://i.hizliresim.com/eh45mb1.gif'
+    photo_url = 'https://i.hizliresim.com/4fw6vm3.jpg'
     welcome_text = ("Merhaba Ben Etiket Botuyum,\n\n"
                     "Sizin için etiketleme işlemi yaparım ayrıca özel mesajlar ile :)")
     
     buttons = [
-        [Button.url('📣 Sohbet Grubumuz', 'https://t.me/sohbetgrubu345'), 
-         Button.url('❤️‍🔥 Sahip', 'https://t.me/t3rickg')],
+        [Button.url('📣 Sohbet Grubumuz', 'https://t.me/kiyicitayfaa'), 
+         Button.url('❤️‍🔥 Sahip', 'https://t.me/Officialkiyici')],
         [Button.inline('❔ Komutlar', b'commands')]
     ]
     
@@ -43,8 +43,8 @@ async def commands(event):
                "/eros - Eros oyununu başlatır ve rastgele kişileri eşleştirir\n" \
                "/tokat - Rastgele eğlenceli eylemler gerçekleştirir"
     await event.edit(helptext, buttons=[
-        [Button.url('📣 Sohbet Grubumuz', 'https://t.me/sohbetgrubu345')],
-        [Button.url('❤️‍🔥 Sahip', 't.me/t3rickg')]
+        [Button.url('📣 Sohbet Grubumuz', 'https://t.me/kiyicitayfaa')],
+        [Button.url('❤️‍🔥 Sahip', 't.me/Officialkiyici')]
     ])
 
 @client.on(events.NewMessage(pattern="^/tag ?(.*)"))
