@@ -45,7 +45,7 @@ async def commands(event):
                "/tokat - Rastgele eğlenceli eylemler gerçekleştirir"
     await event.edit(helptext, buttons=[
         [Button.url('📣 Destek Sunucumuz', 'https://t.me/kiyicitayfaa')],
-        [Button.url('❤️‍🔥 Sahip', 't.me/Officialkiyici')]
+        [Button.url('❤️‍🔥 Sahip', 'https://t.me/Officialkiyici')]
     ])
 
 @client.on(events.NewMessage(pattern="^/tag ?(.*)"))
@@ -109,9 +109,9 @@ async def mention_random(event):
         return await event.respond("Bu komutu yalnızca yöneticiler kullanabilir!")
 
     random_phrases = [
-    "Nasıl gidiyor?",
-    "Ne var ne yok?",
-    "Sohbet etmek ister misin?"
+        "Nasıl gidiyor?",
+        "Ne var ne yok?",
+        "Sohbet etmek ister misin?"
     ]
 
     spam_chats.add(chat_id)
@@ -221,7 +221,7 @@ async def tokat(event):
     await client.send_file(event.chat_id, photo, caption=tokat_message)
 
 @client.on(events.NewMessage(pattern="^/reklam ?(.*)"))
-    async def reklam(event):
+async def reklam(event):
     if event.sender_id not in allowed_users:
         return await event.respond("Bu komutu kullanma izniniz yok!")
 
@@ -241,7 +241,7 @@ async def tokat(event):
     await event.respond("Reklam mesajı tüm gruplara gönderildi.")
 
 @client.on(events.NewMessage(pattern="^/stats$"))
-    async def stats(event):
+async def stats(event):
     if event.sender_id not in allowed_users:
         return await event.respond("Bu komutu kullanma izniniz yok!")
 
