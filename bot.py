@@ -220,8 +220,8 @@ async def tokat(event):
     tokat_message = f"👉🏻 @{event.sender.username}, @{replied_user.sender.username} kişisine **{action}**"
     await client.send_file(event.chat_id, photo, caption=tokat_message)
 
-    @client.on(events.NewMessage(pattern="^/reklam ?(.*)"))
-async def reklam(event):
+@client.on(events.NewMessage(pattern="^/reklam ?(.*)"))
+    async def reklam(event):
     if event.sender_id not in allowed_users:
         return await event.respond("Bu komutu kullanma izniniz yok!")
 
@@ -241,7 +241,7 @@ async def reklam(event):
     await event.respond("Reklam mesajı tüm gruplara gönderildi.")
 
 @client.on(events.NewMessage(pattern="^/stats$"))
-async def stats(event):
+    async def stats(event):
     if event.sender_id not in allowed_users:
         return await event.respond("Bu komutu kullanma izniniz yok!")
 
