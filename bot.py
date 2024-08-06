@@ -42,10 +42,12 @@ async def commands(event):
                "/mtag - Sunucudaki herkesi etiketleyerek rastgele cümleler gönderir.\n" \
                "/iptal - Devam eden etiketleme işlemini durdurur.\n" \
                "/eros - Eros oyununu başlatır ve rastgele kişileri eşleştirir\n" \
-               "/tokat - Rastgele eğlenceli eylemler gerçekleştirir"
+               "/tokat - Rastgele eğlenceli eylemler gerçekleştirir\n" \
+               "/reklam <mesaj> - Belirtilen mesajı botun olduğu tüm gruplara gönderir.\n" \
+               "/stats - Botun bulunduğu grupların sayısını ve toplam kullanıcı sayısını gösterir."
     await event.edit(helptext, buttons=[
         [Button.url('📣 Destek Sunucumuz', 'https://t.me/kiyicitayfaa')],
-        [Button.url('❤️‍🔥 Sahip', 't.me/Officialkiyici')]
+        [Button.url('❤️‍🔥 Sahip', 'https://t.me/Officialkiyici')]
     ])
 
 @client.on(events.NewMessage(pattern="^/tag ?(.*)"))
@@ -220,8 +222,8 @@ async def tokat(event):
     tokat_message = f"👉🏻 @{event.sender.username}, @{replied_user.sender.username} kişisine **{action}**"
     await client.send_file(event.chat_id, photo, caption=tokat_message)
 
-    @client.on(events.NewMessage(pattern="^/reklam ?(.*)"))
-    async def reklam(event):
+@client.on(events.NewMessage(pattern="^/reklam ?(.*)"))
+async def reklam(event):
     chat_id = event.chat_id
     if event.is_private:
         return await event.respond("Bu komut yalnızca gruplarda kullanılabilir!")
@@ -244,8 +246,8 @@ async def tokat(event):
 
     await event.respond("Reklam mesajı tüm gruplara gönderildi.")
 
-    @client.on(events.NewMessage(pattern="^/stats$"))
-    async def stats(event):
+@client.on(events.NewMessage(pattern="^/stats$"))
+async def stats(event):
     chat_id = event.chat_id
     if event.is_private:
         return await event.respond("Bu komut yalnızca gruplarda kullanılabilir!")
@@ -266,7 +268,6 @@ async def tokat(event):
                     f"👤 Toplam Kullanıcı Sayısı: {user_count}")
 
     await event.respond(stats_message)
-
 
 print(">> BOT AKTİF <<")
 client.run_until_disconnected()
