@@ -27,7 +27,7 @@ async def start(event):
                     "Sizin için etiketleme işlemi yaparım ayrıca özel mesajlar ile :)")
     
     buttons = [
-        [Button.url('📣 Sohbet Grubumuz', 'https://t.me/kiyicitayfaa'), 
+        [Button.url('📣 Destek Sunucumuz', 'https://t.me/kiyicitayfaa'), 
          Button.url('❤️‍🔥 Sahip', 'https://t.me/Officialkiyici')],
         [Button.inline('❔ Komutlar', b'commands')]
     ]
@@ -43,7 +43,7 @@ async def commands(event):
                "/eros - Eros oyununu başlatır ve rastgele kişileri eşleştirir\n" \
                "/tokat - Rastgele eğlenceli eylemler gerçekleştirir"
     await event.edit(helptext, buttons=[
-        [Button.url('📣 Sohbet Grubumuz', 'https://t.me/kiyicitayfaa')],
+        [Button.url('📣 Destek Sunucumuz', 'https://t.me/kiyicitayfaa')],
         [Button.url('❤️‍🔥 Sahip', 't.me/Officialkiyici')]
     ])
 
