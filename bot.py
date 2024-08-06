@@ -229,7 +229,7 @@ async def reklam(event):
     if not msg:
         return await event.respond("Bir mesaj belirtmelisiniz!")
 
-    # Botun bulunduğu tüm gruplara mesaj gönder
+    # Botun bulunduğu gruplara mesaj gönderme
     async for dialog in client.iter_dialogs():
         if dialog.is_group:
             try:
@@ -247,11 +247,15 @@ async def stats(event):
 
     group_count = 0
     user_count = 0
+
     async for dialog in client.iter_dialogs():
         if dialog.is_group:
             group_count += 1
-            async for participant in client.iter_participants(dialog.id):
-                user_count += 1
+            try:
+                async for participant in client.iter_participants(dialog.id):
+                    user_count += 1
+            except Exception as e:
+                LOGGER.error(f"Grup üyeleri alınırken hata oluştu: {str(e)}")
 
     stats_message = (f"📊 **Botun İstatistikleri**\n\n"
                     f"👥 Toplam Grup Sayısı: {group_count}\n"
